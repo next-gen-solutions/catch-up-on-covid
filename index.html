@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TBD</title>
-    <link    rel="stylesheet"
-    href="../tbd/assets/css/style.css"/>
-    
-</head>
-<body>
-    <header>
-        <h1>header</h1>
-    </header>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
 
-    <form>
-        <input id="city" placeholder="insert city">
-        <button id="search">Submit </button>
-    </form>
-    <!--  dom manipulation part -->
-<div class="main">
-main dom
-</div>
-<!--  previous search -->
-<div class="secondary">
-previous history
-</div>
-<!-- single new article -->
-<div class="secondary">
-single news card
-</div>
+</head>
+
+<body>
+    <header class="navbar-item">
+        <h1>HEADER GOES HERE</h1>   
+    </header>
+    <div class="wrapper columns">
+        <section class="column main">
+        <div class="field has-addons">
+            <div class="control">
+              <input class="input" id= 'city"' type="text" placeholder="Enter city name">
+            </div>
+            <div class="control">
+              <a class="button is-info" id="search">
+                Search
+              </a>
+            </div>
+          </div>
+          <div class='search-details'>CONTENT GOES HERE</div>
+          </section>
+        <!--  previous search -->
+        <section class="column is-one-third">
+            <div class="secondary">
+                previous history
+            </div>
+            <!-- single new article -->
+            <div class="secondary">
+                single news card
+            </div>
+        </section>
+    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="../tbd/assets/js/script.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
