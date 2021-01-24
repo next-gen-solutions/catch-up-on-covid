@@ -30,3 +30,7 @@ header{
     margin: 30pt;
     padding: 10pt;
 }
+#news {
+    background: currentColor;
+    background-size: cover;
+}
