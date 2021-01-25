@@ -1,36 +1,64 @@
+:root {
+  --primary: antiquewhite;
+  font-family: "DM Sans", sans-serif;
+  color: #2b2d2f;
+}
+
+header {
+  border-bottom: solid 3px;
+  border-color: var(--primary);
+  width: 100%;
+  color: var(--primary);
+}
+
 h1 {
+  text-align: center;
+  font-size: 30pt;
+  font-weight: 400;
 }
 
-header{
-    border-bottom: solid 3px;
-    border-color: lightsteelblue;
-    width:100%;
+body {
+  background-image: url("/assets/wallpaper.jpg");
+  opacity: 0.95;
+  background-size: cover;
 }
-.main{
+
+#search {
+    background: dimgrey;
+}
+
+.search-area {
     display: flex;
-    flex-direction: column;
-
 }
-.search-details{
-    text-align: center;
-    border: solid 2px;
-    border-color:lightsteelblue;
-    height: 100%;
+.main {
+  display: flex;
+  flex-direction: column;
 }
-.secondary{
-    border: solid 2px;
-    border-color: lightsteelblue;
-    height: 200pt;
-    padding: 10pt;
-    margin: 4pt;
-    text-align: center;
+.search-details {
+  text-align: center;
+  border: solid 2px;
+  border-color: var(--primary);
+  height: 93%;
+}
+.secondary {
+  height: 200pt;
+  padding: 10pt;
+  margin: 4pt;
+  text-align: center;
+  border: solid 2px;
+  border-color: var(--primary);
 }
 
 .column {
-    margin: 30pt;
-    padding: 10pt;
+  margin: 15pt;
+  padding: 10pt;
 }
 #news {
-    background: currentColor;
-    background-size: cover;
+  background: currentColor;
+  background-size: cover;
+}
+
+#chart {
+  height: 64%;
+  padding: 0pt;
 }
