@@ -1,12 +1,30 @@
+:root {
+  --primary: antiquewhite;
+  font-family: "DM Sans", sans-serif;
+  color: #2b2d2f;
+}
+
 header {
   border-bottom: solid 3px;
-  border-color: darkgoldenrod;
+  border-color: var(--primary);
   width: 100%;
+  color: var(--primary);
+}
+
+h1 {
+  text-align: center;
+  font-size: 30pt;
+  font-weight: 400;
 }
 
 body {
-  background-image: url("/assets/178191.jpg");
+  background-image: url("/assets/wallpaper.jpg");
   opacity: 0.95;
+  background-size: cover;
+}
+
+#search {
+    background: dimgrey;
 }
 .main {
   display: flex;
@@ -15,7 +33,7 @@ body {
 .search-details {
   text-align: center;
   border: solid 2px;
-  border-color: darkgoldenrod;
+  border-color: var(--primary);
   height: 100%;
 }
 .secondary {
@@ -24,7 +42,7 @@ body {
   margin: 4pt;
   text-align: center;
   border: solid 2px;
-  border-color: darkgoldenrod;
+  border-color: var(--primary);
 }
 
 .column {
