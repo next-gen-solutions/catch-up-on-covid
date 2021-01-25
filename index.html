@@ -5,38 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TBD</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css"
+        integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA=="
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="./assets/css/style.css" />
 
 </head>
 
 <body>
     <header class="navbar-item">
-        <h1>HEADER GOES HERE</h1>   
+        <h1>HEADER GOES HERE</h1>
     </header>
     <div class="wrapper columns">
         <section class="column main">
-        <div class="field has-addons">
-            <div class="control">
-              <input class="input" id= 'city"' type="text" placeholder="Enter city name">
+            <div class="field has-addons">
+                <div class="control">
+                    <input class="input" id='city' type="text" placeholder="Enter city name">
+                </div>
+                <div class="control">
+                    <a class="button is-info" id="search">
+                        Search
+                    </a>
+                </div>
             </div>
-            <div class="control">
-              <a class="button is-info" id="search">
-                Search
-              </a>
-            </div>
-          </div>
-          <div class='search-details'></div>
-          </section>
-        <!--  previous search -->
-        <section class="column is-one-third">
-            <div class="secondary">
-                previous history
-            </div>
+            <div class='search-details'></div>
+        </section>
+        <section class="column">
             <!-- single new article -->
             <div class="secondary" id='news'>
                 <a target="_blank" href=""></a>
+            </div>
+            <div class="secondary" id="chart">
+                <iframe width="650" height="500" frameborder="0"
+                    src="https://covid19chart.org/#/?bare=1&include=Italy%3BUS%3BFrance%3B&scale=linear&start=1%2F1%2F21&top=0&domain=Intl&theme=dark&advanced=1"></iframe>
             </div>
         </section>
     </div>

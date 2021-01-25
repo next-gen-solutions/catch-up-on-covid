@@ -1,36 +1,42 @@
-h1 {
+header {
+  border-bottom: solid 3px;
+  border-color: darkgoldenrod;
+  width: 100%;
 }
 
-header{
-    border-bottom: solid 3px;
-    border-color: lightsteelblue;
-    width:100%;
+body {
+  background-image: url("/assets/178191.jpg");
+  opacity: 0.95;
 }
-.main{
-    display: flex;
-    flex-direction: column;
-
+.main {
+  display: flex;
+  flex-direction: column;
 }
-.search-details{
-    text-align: center;
-    border: solid 2px;
-    border-color:lightsteelblue;
-    height: 100%;
+.search-details {
+  text-align: center;
+  border: solid 2px;
+  border-color: darkgoldenrod;
+  height: 100%;
 }
-.secondary{
-    border: solid 2px;
-    border-color: lightsteelblue;
-    height: 200pt;
-    padding: 10pt;
-    margin: 4pt;
-    text-align: center;
+.secondary {
+  height: 200pt;
+  padding: 10pt;
+  margin: 4pt;
+  text-align: center;
+  border: solid 2px;
+  border-color: darkgoldenrod;
 }
 
 .column {
-    margin: 30pt;
-    padding: 10pt;
+  margin: 15pt;
+  padding: 10pt;
 }
 #news {
-    background: currentColor;
-    background-size: cover;
+  background: currentColor;
+  background-size: cover;
+}
+
+#chart {
+  height: 64%;
+  padding: 0pt;
 }

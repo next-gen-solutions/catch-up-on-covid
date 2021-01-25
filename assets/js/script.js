@@ -77,4 +77,4 @@ var getNewsForCountry = (fullCountryName) => {
 };
 
   // TODO: make dynamic once all pieces are ready
-  getNewsForCountry("USA");
+  getNewsForCountry("France");
