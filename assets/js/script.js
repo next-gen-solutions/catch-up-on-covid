@@ -7,6 +7,7 @@ $("#search").on("click", function (e) {
 
   // display COVID-19 news for a given country
   displayNewsForCountry(country);
+  displayChart(country);
 });
 
 // Given full country name, converts it to ISO 3166-1 alpha-2 code.
@@ -23,7 +24,7 @@ var convertCountryToISO = async function (fullCountryName) {
 // Given country code, retrieve trending COVID-19 news for that country
 var getNewsForCountry = async (countryCode) => {
   const response = await fetch(
-    `https://covid-19-news.p.rapidapi.com/v1/covid?q=covid&lang=en&sort_by=rank&country=${countryCode}&media=True`,
+    `https://covid-19-news.p.rapidapi.com/v1/covid?q=covid&lang=en&sort_by=relevancy&country=${countryCode}&media=True`,
     {
       method: "GET",
       headers: {
@@ -67,3 +68,13 @@ var displayNewsForCountry = (fullCountryName) => {
       console.error(err);
     });
 };
+
+
+var displayChart = (countryName)=>{
+  var iframeEl = $('#chart iframe');
+  var countryCovidHandledBest = 'US'; //TODO: @yulduz to make this retrieved from API
+  var countryCovidHandledWorst = 'Italy'; //TODO: @yulduz to make this retrieved from API
+  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${countryCovidHandledWorst}%3B${countryName}%3B${countryCovidHandledBest}%3B&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`
+}
+
+displayNewsForCountry('US');
