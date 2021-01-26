@@ -14,54 +14,52 @@ console.log(date)
 //start of samuels portion
 $("#search").on("click",function(e) {
    e.preventDefault()
-   var place = $("#city").val();
-
-     // make a get request to url
-     var api = "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/total?country=" + place;
-     console.log(api)
-     fetch(api, {
-       "method": "GET",
-       "headers": {
-           "x-rapidapi-key": "5320d39b26msh9d1c12db50862d2p1c0e8ajsn0cf78c7c1705",
-           "x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com"
-       }
-   })
-     .then(function(response) {
-       // request was successful
-       if (response.ok) {
-           //call display function
-         response.json().then(function(data) {
-            //displays results
-           displayResults(data);
-          
-         });
-       } else {
-         alert("Error: " + response.statusText);
-       }
-     })
-     .catch(function(error) {
-       alert("Unable to connect to GitHub");
-     });
+   displayResults();
 });
 //function that displays  logic
-function displayResults(data){
-    if (data.data.location === "Global"){
-        errorMessage.innerHTML = "This country is not yet supported by our program, please have a look at the global stats!";
-        errorMessage.setAttribute("class", "error")
-      countryName.innerHTML = data.data.location;
-      lastChecked.innerHTML ="updated on " + moment().format('LLL');
-      currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
-      currentCases.innerHTML = "Current Cases: " + data.data.confirmed
-      currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
-    }
-    else{
-        errorMessage.innerHTML = "";
-  countryName.innerHTML = data.data.location;
-  lastChecked.innerHTML ="updated on " + moment().format('LLL');
-  currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
-  currentCases.innerHTML = "Current Cases: " + data.data.confirmed
-  currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
-    }
+function displayResults(){
+    var place = $("#city").val();
+
+    // make a get request to url
+    var api = "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/total?country=" + place;
+    console.log(api)
+    fetch(api, {
+      "method": "GET",
+      "headers": {
+          "x-rapidapi-key": "5320d39b26msh9d1c12db50862d2p1c0e8ajsn0cf78c7c1705",
+          "x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com"
+      }
+  })
+    .then(function(response) {
+      // request was successful
+      if (response.ok) {
+          //call display function
+        response.json().then(function(data) {
+           //displays results
+           if (data.data.location === "Global"){
+               errorMessage.innerHTML = "This country is not yet supported by our program, please have a look at the global stats!";
+               errorMessage.setAttribute("class", "error")
+             countryName.innerHTML = data.data.location;
+             lastChecked.innerHTML ="updated on " + moment().format('LLL');
+             currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
+             currentCases.innerHTML = "Current Cases: " + data.data.confirmed
+             currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
+           }
+           else{
+               errorMessage.innerHTML = "";
+         countryName.innerHTML = data.data.location;
+         lastChecked.innerHTML ="updated on " + moment().format('LLL');
+         currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
+         currentCases.innerHTML = "Current Cases: " + data.data.confirmed
+         currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
+           }          
+        });
+      } else {
+        alert("Error: " + response.statusText);
+      }
+    })
+    .catch(function(error) {
+    });
   //append information
   
   info.appendChild(errorMessage);
@@ -120,8 +118,6 @@ var getNewsForCountry = (fullCountryName) => {
      });
  });
 };
-
-
 
  // TODO: make dynamic once all pieces are ready
  getNewsForCountry("US");
