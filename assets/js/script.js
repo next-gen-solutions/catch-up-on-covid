@@ -6,7 +6,6 @@ for the specific place they inserted
 //date for the api it only takes format YYYY/MM/DD
 
 var date = moment(). format("YYYY-MM-DD");
-console.log(date)
  // location for information 
  var info = document.querySelector("#info");
  //place
@@ -16,6 +15,7 @@ $("#search").on("click",function(e) {
    e.preventDefault()
    displayResults();
 });
+
 //function that displays  logic
 function displayResults(){
     var place = $("#city").val();
