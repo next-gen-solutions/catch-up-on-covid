@@ -31,6 +31,8 @@ $("#search").on("click",function(e) {
             //call display function
           response.json().then(function(data) {
               // display information
+
+              // if  country is not supported by api display global STATS
               if (data.data.location === "Global"){
                   errorMessage.innerHTML = "This country is not yet supported by our program, please have a look at the global stats!";
                   errorMessage.setAttribute("class", "error");
@@ -40,6 +42,7 @@ $("#search").on("click",function(e) {
                 currentCases.innerHTML = "Current Cases: " + data.data.confirmed
                 currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
               }
+              //else display stats for country
               else{
                 errorMessage.innerHTML = "";
             countryName.innerHTML = place;
