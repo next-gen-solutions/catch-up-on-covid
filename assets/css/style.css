@@ -75,3 +75,7 @@ body {
 .textarea {
   background-color: lightgoldenrodyellow;
 }
+
+.error{
+    color:red;
+}
