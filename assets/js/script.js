@@ -7,45 +7,18 @@ for the specific place they inserted
 
  var date = moment(). format("YYYY-MM-DD");
  console.log(date)
+  // location for information 
+  var info = document.querySelector("#info");
 
- 
 
-// $("#search").on("click",function(e) {
-//     e.preventDefault()
-//     var place = $("#city").val();
-//     console.log(place)
-//       // make a get request to url
-//       fetch("https://covid-19-data.p.rapidapi.com/report/country/name?date=" + date + "&name=" + place+"&date-format=YYYY-MM-DD&format=json", {
-//         "method": "GET",
-//         "headers": {
-//             "x-rapidapi-key": "5320d39b26msh9d1c12db50862d2p1c0e8ajsn0cf78c7c1705",
-//             "x-rapidapi-host": "covid-19-data.p.rapidapi.com"
-//         }
-//     })
-//       .then(function(response) {
-//         // request was successful
-//         if (response.ok) {
-//             //call display function
-//           response.json().then(function(data) {
-//             // displayRates(data);
-//             console.log(data[0].provinces[0].province)
-
-//           });
-//         } else {
-//           alert("Error: " + response.statusText);
-//         }
-//       })
-//       .catch(function(error) {
-//         alert("Unable to connect to GitHub");
-//       });
-// });
-
+//start of samuels portion
 $("#search").on("click",function(e) {
     e.preventDefault()
     var place = $("#city").val();
-    console.log(place)
       // make a get request to url
-      fetch("https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/total?country="+place, {
+      var api = "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/total?country=" + place;
+      console.log(api)
+      fetch(api, {
         "method": "GET",
         "headers": {
             "x-rapidapi-key": "5320d39b26msh9d1c12db50862d2p1c0e8ajsn0cf78c7c1705",
@@ -57,8 +30,20 @@ $("#search").on("click",function(e) {
         if (response.ok) {
             //call display function
           response.json().then(function(data) {
-            // displayRates(data);
-            console.log(data.data.recovered)
+              console.log(data.data.location)
+            countryName.innerHTML = place;
+            lastChecked.innerHTML ="updated on " + moment().format('LLL');
+            currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
+            currentCases.innerHTML = "Current Cases: " + data.data.confirmed
+            currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
+
+            info.appendChild(countryName);
+            info.appendChild(lastChecked);
+            info.appendChild(currentCases);
+            info.appendChild(currentDeaths);
+            info.appendChild(currentRecoveries);
+
+
 
           });
         } else {
@@ -69,7 +54,55 @@ $("#search").on("click",function(e) {
         alert("Unable to connect to GitHub");
       });
 });
+//end of samuels Portion
 
-//  function displayRates(data){
-//    console.log(data.confirmed)
-//  }
+// Given full country name, converts it to ISO 3166-1 alpha-2 code.
+var convertCountryToISO = async function (fullCountryName) {
+  const response = await fetch(
+    `https://restcountries.eu/rest/v2/name/${fullCountryName
+      .toLowerCase()
+      .trim()}?fullText=true`
+  );
+  const responseJSON = await response.json();
+  return responseJSON[0].alpha2Code;
+};
+
+// Given full country name, displays COVID-19 news for that country
+var getNewsForCountry = (fullCountryName) => {
+  convertCountryToISO(fullCountryName).then((countryCode) => {
+    fetch(
+      `https://covid-19-news.p.rapidapi.com/v1/covid?q=covid&lang=en&sort_by=rank&country=${countryCode}&media=True`,
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key":
+            "79e20cee69mshcae50ad470f1abep1cc951jsn09748cf70909",
+          "x-rapidapi-host": "covid-19-news.p.rapidapi.com",
+        },
+      }
+    )
+      .then((response) => {
+        response.json().then((responseJSON)=>{
+          var imageUrl = responseJSON.articles[0].media;
+          var sourceLink = responseJSON.articles[0].link;
+          var summary = responseJSON.articles[0].title;
+          $("#news").css("background-image", `url(${imageUrl})`);
+          $('#news a').attr('href', sourceLink, '_blank').css('color','white')
+          document.querySelector('#news a').text = summary;
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+};
+//creating elements 
+var countryName = document.createElement("h1");
+var lastChecked = document.createElement("h1");
+var currentCases = document.createElement("h1");
+var currentDeaths = document.createElement("h1");
+var currentRecoveries = document.createElement("h1");
+
+
+  // TODO: make dynamic once all pieces are ready
+  getNewsForCountry("US");
