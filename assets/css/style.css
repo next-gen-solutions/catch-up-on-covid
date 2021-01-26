@@ -62,3 +62,6 @@ body {
   height: 64%;
   padding: 0pt;
 }
+.error{
+    color:red;
+}

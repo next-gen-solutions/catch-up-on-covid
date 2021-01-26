@@ -30,13 +30,27 @@ $("#search").on("click",function(e) {
         if (response.ok) {
             //call display function
           response.json().then(function(data) {
-              console.log(data.data.location)
+              // display information
+              if (data.data.location === "Global"){
+                  errorMessage.innerHTML = "This country is not yet supported by our program, please have a look at the global stats!";
+                  errorMessage.setAttribute("class", "error");
+                countryName.innerHTML = data.data.location;
+                lastChecked.innerHTML ="updated on " + moment().format('LLL');
+                currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
+                currentCases.innerHTML = "Current Cases: " + data.data.confirmed
+                currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
+              }
+              else{
+                errorMessage.innerHTML = "";
             countryName.innerHTML = place;
             lastChecked.innerHTML ="updated on " + moment().format('LLL');
             currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
             currentCases.innerHTML = "Current Cases: " + data.data.confirmed
             currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
-
+              }
+            //append information
+            
+            info.appendChild(errorMessage);
             info.appendChild(countryName);
             info.appendChild(lastChecked);
             info.appendChild(currentCases);
@@ -97,6 +111,7 @@ var getNewsForCountry = (fullCountryName) => {
   });
 };
 //creating elements 
+var errorMessage =  document.createElement("h2");
 var countryName = document.createElement("h1");
 var lastChecked = document.createElement("h1");
 var currentCases = document.createElement("h1");
