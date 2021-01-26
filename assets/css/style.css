@@ -18,7 +18,7 @@ h1 {
 }
 
 body {
-  background-image: url("/assets/wallpaper.jpg");
+  background-image: url('../wallpaper.jpg');
   background-size: cover;
 }
 
@@ -67,7 +67,6 @@ body {
   font-size: 12pt;
   font-weight: bold;
   font-style: italic;
-  color: yellow;
   font-size: x-large;
 }
 

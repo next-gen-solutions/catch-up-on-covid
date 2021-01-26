@@ -1,8 +1,6 @@
-/*TODO : when search button is clicked we 
-get the users import and ad it to the API to get the response
-for the specific place they inserted
+/*When search button is clicked we 
+get user's input and add it to the APIs to get required COVID-19 data
 */
-
 $("#search").on("click", function (e) {
   e.preventDefault();
   var country = $("#country-dropdown option:selected").text();
@@ -46,9 +44,8 @@ var populateNewsContent = (responseJSON) => {
   if (!imageUrl) {
     imageUrl = "assets/default.jpg";
   }
-  $("#news").css({"background-image": `url(${imageUrl})`});
-  $("#news a")
-    .attr("href", sourceLink, "_blank");
+  $("#news").css({ "background-image": `url(${imageUrl})` });
+  $("#news a").attr("href", sourceLink, "_blank");
   document.querySelector("#news a").text = title;
 };
 
