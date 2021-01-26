@@ -55,7 +55,6 @@ function displayResults(){
            }          
         });
       } else {
-        alert("Error: " + response.statusText);
       }
     })
     .catch(function(error) {
