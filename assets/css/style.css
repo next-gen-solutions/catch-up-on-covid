@@ -18,17 +18,16 @@ h1 {
 }
 
 body {
-  background-image: url("/assets/wallpaper.jpg");
-  opacity: 0.95;
+  background-image: url("../wallpaper.jpg");
   background-size: cover;
 }
 
 #search {
-    background: dimgrey;
+  background: dimgrey;
 }
 
 .search-area {
-    display: flex;
+  display: flex;
 }
 .main {
   display: flex;
@@ -54,14 +53,30 @@ body {
   padding: 10pt;
 }
 #news {
-  background: currentColor;
   background-size: cover;
+  opacity: 0.9;
 }
 
 #chart {
   height: 64%;
   padding: 0pt;
 }
+
+
+#news a {
+  text-decoration: revert;
+  font-size: 12pt;
+  font-weight: bold;
+  font-style: italic;
+  font-size: x-large;
+}
+
+.input,
+.select select,
+.textarea {
+  background-color: lightgoldenrodyellow;
+}
+
 .error{
     color:red;
 }
