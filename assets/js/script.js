@@ -12,13 +12,13 @@ $("#search").on("click", function (e) {
 
 // Given full country name, converts it to ISO 3166-1 alpha-2 code.
 var convertCountryToISO = async function (fullCountryName) {
-  const response = await fetch(
-    `https://restcountries.eu/rest/v2/name/${fullCountryName
-      .toLowerCase()
-      .trim()}?fullText=true`
-  );
-  const responseJSON = await response.json();
-  return responseJSON[0].alpha2Code;
+ const response = await fetch(
+   `https://restcountries.eu/rest/v2/name/${fullCountryName
+     .toLowerCase()
+     .trim()}?fullText=true`
+ );
+ const responseJSON = await response.json();
+ return responseJSON[0].alpha2Code;
 };
 
 // Given country code, retrieve trending COVID-19 news for that country
@@ -107,13 +107,7 @@ var displayStatsForGivenCountry = (country) => {
 };
 
 var populateCovidStatsContent = (data) => {
-  //creating elements
-  var errorMessage = document.createElement("h2");
-  var countryName = document.createElement("h1");
-  var lastChecked = document.createElement("h1");
-  var currentCases = document.createElement("h1");
-  var currentDeaths = document.createElement("h1");
-  var currentRecoveries = document.createElement("h1");
+
 
   if (data.data.location === "Global") {
     errorMessage.innerHTML =
@@ -141,5 +135,12 @@ var populateCovidStatsContent = (data) => {
   info.appendChild(currentDeaths);
   info.appendChild(currentRecoveries);
 };
-
+  //creating elements outside so it clears.
+  var errorMessage = document.createElement("h2");
+  var countryName = document.createElement("h1");
+  var lastChecked = document.createElement("h1");
+  var currentCases = document.createElement("h1");
+  var currentDeaths = document.createElement("h1");
+  var currentRecoveries = document.createElement("h1");
+  
 displayNewsForCountry("US");
