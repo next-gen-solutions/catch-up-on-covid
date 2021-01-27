@@ -1,11 +1,12 @@
+var countries = JSON.parse(localStorage.getItem("cityCoordinates")) || [];
+
 /*When search button is clicked we 
 get user's input and add it to the APIs to get required COVID-19 data
 */
 $("#search").on("click", function (e) {
   e.preventDefault();
   var country = $("#country-dropdown option:selected").text();
-
-  displayStatsForGivenCountry (country);
+  displayStatsForGivenCountry(country);
   displayNewsForCountry(country);
   displayChart(country);
 });
@@ -98,11 +99,9 @@ var displayStatsForGivenCountry = (country) => {
           populateCovidStatsContent(data);
         });
       } else {
-        alert("Error: " + response.statusText);
       }
     })
     .catch(function (error) {
-      alert("Unable to connect to GitHub");
     });
 };
 
