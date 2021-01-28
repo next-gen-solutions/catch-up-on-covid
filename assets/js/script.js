@@ -92,7 +92,7 @@ var displayNewsForCountry = (fullCountryName) => {
         })
         .catch((err) => {
           var newsHeaderEl = document.querySelector("#news a");
-          newsHeaderEl.text = "Your advertisement could go here";
+          newsHeaderEl.text = "Your advertisement could go here";//TODO: @yulduz: fix it
           newsHeaderEl.setAttribute(
             "style",
             "font-size: 20px",
@@ -117,7 +117,7 @@ var displayChart = async (searchedCountry) => {
   var iframeEl = $("#chart iframe");
   var userLocationBasedCountry;
   userLocationBasedCountry = await getUsersLocation();
-  var previoslySearchedCountry = JSON.stringify(countries);
+  var previoslySearchedCountry = JSON.stringify(countries); //TODO: @yulduz: fix this
   //only display 1 country if it's redundant across 3 variables
   if (
     searchedCountry === previoslySearchedCountry &&
@@ -175,6 +175,8 @@ var displayStatsForGivenCountry = (country) => {
 };
 
 var populateCovidStatsContent = (data) => {
+  $("#info").attr("class", "card cardStyle");
+
   if (data.data.location === "Global") {
     errorMessage.innerHTML =
       "This country is not yet supported by our program, please have a look at the global stats!";
