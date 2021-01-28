@@ -61,6 +61,7 @@ var displayNewsForCountry = (fullCountryName) => {
             populateNewsContent(defaultResponseJSON);
           });
         } else {
+        
           populateNewsContent(responseJSON);
         }
       });
@@ -107,6 +108,7 @@ var displayStatsForGivenCountry = (country) => {
 
 var populateCovidStatsContent = (data) => {
 
+    $("#info").attr("class","card cardStyle");
 
   if (data.data.location === "Global") {
     errorMessage.innerHTML =
@@ -117,7 +119,8 @@ var populateCovidStatsContent = (data) => {
     currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
     currentCases.innerHTML = "Current Cases: " + data.data.confirmed;
     currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
-  } else {
+  } 
+  else {
     errorMessage.innerHTML = "";
     countryName.innerHTML = data.data.location;
     lastChecked.innerHTML = "updated on " + moment().format("LLL");
