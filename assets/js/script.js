@@ -107,7 +107,7 @@ var displayNewsForCountry = (fullCountryName) => {
 
 var getUsersLocation = async () => {
   const response = await fetch(
-    "http://api.ipstack.com/check?access_key=caf6117ea48e02e280cf1198ad4c4e12"
+    "https://api.ipstack.com/check?access_key=caf6117ea48e02e280cf1198ad4c4e12"
   );
   const responseJSON = await response.json();
   var countryBasedOnLocation = responseJSON.country_code;
