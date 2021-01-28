@@ -1,11 +1,12 @@
+var countries = JSON.parse(localStorage.getItem("cityCoordinates")) || [];
+
 /*When search button is clicked we 
 get user's input and add it to the APIs to get required COVID-19 data
 */
 $("#search").on("click", function (e) {
   e.preventDefault();
   var country = $("#country-dropdown option:selected").text();
-
-  displayStatsForGivenCountry (country);
+  displayStatsForGivenCountry(country);
   displayNewsForCountry(country);
   displayChart(country);
 });
@@ -60,6 +61,7 @@ var displayNewsForCountry = (fullCountryName) => {
             populateNewsContent(defaultResponseJSON);
           });
         } else {
+        
           populateNewsContent(responseJSON);
         }
       });
@@ -98,16 +100,15 @@ var displayStatsForGivenCountry = (country) => {
           populateCovidStatsContent(data);
         });
       } else {
-        alert("Error: " + response.statusText);
       }
     })
     .catch(function (error) {
-      alert("Unable to connect to GitHub");
     });
 };
 
 var populateCovidStatsContent = (data) => {
 
+    $("#info").attr("class","card cardStyle");
 
   if (data.data.location === "Global") {
     errorMessage.innerHTML =
@@ -118,7 +119,8 @@ var populateCovidStatsContent = (data) => {
     currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
     currentCases.innerHTML = "Current Cases: " + data.data.confirmed;
     currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
-  } else {
+  } 
+  else {
     errorMessage.innerHTML = "";
     countryName.innerHTML = data.data.location;
     lastChecked.innerHTML = "updated on " + moment().format("LLL");

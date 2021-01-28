@@ -2,6 +2,8 @@
   --primary: antiquewhite;
   font-family: "DM Sans", sans-serif;
   color: #2b2d2f;
+  
+
 }
 
 header {
@@ -28,6 +30,7 @@ body {
 
 .search-area {
   display: flex;
+  margin-bottom: 20%;
 }
 .main {
   display: flex;
@@ -35,17 +38,14 @@ body {
 }
 .search-details {
   text-align: center;
-  border: solid 2px;
-  border-color: var(--primary);
   height: 93%;
+  color:yellow;
 }
 .secondary {
   height: 200pt;
   padding: 10pt;
   margin: 4pt;
-  text-align: center;
-  border: solid 2px;
-  border-color: var(--primary);
+  
 }
 
 .column {
@@ -63,11 +63,16 @@ body {
 }
 
 #news a {
-  text-decoration: revert;
+    background-color: #94403d;
+     color: red;
+  text-decoration: none;
   font-size: 12pt;
   font-weight: bold;
   font-style: italic;
   font-size: x-large;
+  background-color: var(--primary);
+  border-radius: 5px;
+
 }
 
 .input,
@@ -76,6 +81,11 @@ body {
   background-color: lightgoldenrodyellow;
 }
 
-.error{
+.cardStyle{
+    background-color: #94403d;
     color:red;
 }
+.error{
+    color:orange;
+}
+
