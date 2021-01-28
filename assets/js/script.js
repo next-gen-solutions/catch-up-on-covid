@@ -118,7 +118,6 @@ var displayChart = async (searchedCountry) => {
   var userLocationBasedCountry;
   userLocationBasedCountry = await getUsersLocation();
   var previoslySearchedCountry = JSON.stringify(countries);
-  alert('YAYAY' + previoslySearchedCountry)
   //only display 1 country if it's redundant across 3 variables
   if (
     searchedCountry === previoslySearchedCountry &&
@@ -154,7 +153,6 @@ var displayStatsForGivenCountry = (country) => {
   var api =
     "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/total?country=" +
     country;
-  console.log(api);
   fetch(api, {
     method: "GET",
     headers: {
@@ -211,10 +209,8 @@ var addCountryToLocalStorage = (country) => {
   //update array
   countries.splice(0, 1, country);
 
-  let countryObj = []
   //push to localstorage
-  countryObj.push(country);
-  localStorage.setItem("countries", JSON.stringify(countryObj));
+  localStorage.setItem("countries", JSON.stringify(countries));
 };
 
 displayChart();
