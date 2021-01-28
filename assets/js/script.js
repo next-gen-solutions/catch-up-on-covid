@@ -1,25 +1,36 @@
-var countries = JSON.parse(localStorage.getItem("cityCoordinates")) || [];
+var countries = JSON.parse(localStorage.getItem("countries")) || [];
+var currentCountry;
+
+//creating elements outside so it clears.
+var errorMessage = document.createElement("h2");
+var countryName = document.createElement("h1");
+var lastChecked = document.createElement("h1");
+var currentCases = document.createElement("h1");
+var currentDeaths = document.createElement("h1");
+var currentRecoveries = document.createElement("h1");
 
 /*When search button is clicked we 
 get user's input and add it to the APIs to get required COVID-19 data
 */
 $("#search").on("click", function (e) {
   e.preventDefault();
-  var country = $("#country-dropdown option:selected").text();
-  displayStatsForGivenCountry(country);
-  displayNewsForCountry(country);
-  displayChart(country);
+  currentCountry = $("#country-dropdown option:selected").text();
+  displayStatsForGivenCountry(currentCountry);
+  displayNewsForCountry(currentCountry);
+  displayChart(currentCountry).then(() => {
+    addCountryToLocalStorage(currentCountry);
+  });
 });
 
 // Given full country name, converts it to ISO 3166-1 alpha-2 code.
 var convertCountryToISO = async function (fullCountryName) {
- const response = await fetch(
-   `https://restcountries.eu/rest/v2/name/${fullCountryName
-     .toLowerCase()
-     .trim()}?fullText=true`
- );
- const responseJSON = await response.json();
- return responseJSON[0].alpha2Code;
+  const response = await fetch(
+    `https://restcountries.eu/rest/v2/name/${fullCountryName
+      .toLowerCase()
+      .trim()}?fullText=true`
+  );
+  const responseJSON = await response.json();
+  return responseJSON[0].alpha2Code;
 };
 
 // Given country code, retrieve trending COVID-19 news for that country
@@ -52,29 +63,87 @@ var populateNewsContent = (responseJSON) => {
 };
 
 // Given full country name, displays COVID-19 news for that country
+var myCountry;
+var defaulImgUrl = "assets/default.jpg";
+$("#news").css({ "background-image": `url(${defaulImgUrl})` });
+
 var displayNewsForCountry = (fullCountryName) => {
-  convertCountryToISO(fullCountryName)
-    .then((countryCode) => {
-      getNewsForCountry(countryCode).then((responseJSON) => {
-        if (responseJSON.status == "No matches for your search.") {
-          getNewsForCountry("US").then((defaultResponseJSON) => {
-            populateNewsContent(defaultResponseJSON);
-          });
-        } else {
-          populateNewsContent(responseJSON);
-        }
-      });
+  //on initial load, displays news based on user's location
+  getUsersLocation()
+    .then((country) => {
+      if (!fullCountryName) {
+        myCountry = country;
+      } else myCountry = fullCountryName;
     })
-    .catch((err) => {
-      console.error(err);
+    .then(() => {
+      convertCountryToISO(myCountry)
+        .then((countryCode) => {
+          getNewsForCountry(countryCode).then((responseJSON) => {
+            if (responseJSON.status == "No matches for your search.") {
+              getNewsForCountry("US").then((defaultResponseJSON) => {
+                populateNewsContent(defaultResponseJSON);
+              });
+            } else {
+              populateNewsContent(responseJSON);
+            }
+          });
+        })
+        .catch((err) => {
+          var newsHeaderEl = document.querySelector("#news a");
+          newsHeaderEl.text = "Your advertisement could go here";
+          newsHeaderEl.setAttribute(
+            "style",
+            "font-size: 20px",
+            "color: yellow"
+          );
+          console.error(err);
+        });
     });
 };
 
-var displayChart = (countryName) => {
+var getUsersLocation = async () => {
+  const response = await fetch(
+    "http://api.ipstack.com/check?access_key=caf6117ea48e02e280cf1198ad4c4e12"
+  );
+  const responseJSON = await response.json();
+  var countryBasedOnLocation = responseJSON.country_code;
+  return countryBasedOnLocation;
+};
+
+var displayChart = async (searchedCountry) => {
+  // We need user's location to include that into the chart
   var iframeEl = $("#chart iframe");
-  var countryCovidHandledBest = "US"; //TODO: @yulduz to make this retrieved from API
-  var countryCovidHandledWorst = "Italy"; //TODO: @yulduz to make this retrieved from API
-  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${countryCovidHandledWorst}%3B${countryName}%3B${countryCovidHandledBest}%3B&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+  var userLocationBasedCountry;
+  userLocationBasedCountry = await getUsersLocation();
+  var previoslySearchedCountry = countries[countries.length - 1];
+  //only display 1 country if it's redundant across 3 variables
+  if (
+    searchedCountry === previoslySearchedCountry &&
+    searchedCountry === userLocationBasedCountry
+  ) {
+    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${searchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+    return;
+  }
+
+  //only display 1 country if it's redundant across 2 variables
+  else if (userLocationBasedCountry === previoslySearchedCountry) {
+    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${userLocationBasedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+    return;
+  }
+
+  //only display 2 countries when 1 is redundant
+  else if (!userLocationBasedCountry == previoslySearchedCountry) {
+    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${userLocationBasedCountry};${previoslySearchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+    return;
+  }
+
+  //only display 2 countries when 1 is redundant
+  else if (searchedCountry == previoslySearchedCountry) {
+    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${userLocationBasedCountry};${searchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+    return;
+  }
+  //defaults to display all 3 countries if distinct
+  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${userLocationBasedCountry};${searchedCountry};${previoslySearchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
 };
 
 var displayStatsForGivenCountry = (country) => {
@@ -101,13 +170,10 @@ var displayStatsForGivenCountry = (country) => {
       } else {
       }
     })
-    .catch(function (error) {
-    });
+    .catch(function (error) {});
 };
 
 var populateCovidStatsContent = (data) => {
-
-
   if (data.data.location === "Global") {
     errorMessage.innerHTML =
       "This country is not yet supported by our program, please have a look at the global stats!";
@@ -134,12 +200,14 @@ var populateCovidStatsContent = (data) => {
   info.appendChild(currentDeaths);
   info.appendChild(currentRecoveries);
 };
-  //creating elements outside so it clears.
-  var errorMessage = document.createElement("h2");
-  var countryName = document.createElement("h1");
-  var lastChecked = document.createElement("h1");
-  var currentCases = document.createElement("h1");
-  var currentDeaths = document.createElement("h1");
-  var currentRecoveries = document.createElement("h1");
-  
-displayNewsForCountry("US");
+
+// add country to local storage
+var addCountryToLocalStorage = (country) => {
+  let countryObj = []
+  //push to localstorage
+  countryObj.push(country);
+  localStorage.setItem("countries", JSON.stringify(countryObj));
+};
+
+displayChart();
+displayNewsForCountry();
