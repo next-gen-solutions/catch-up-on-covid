@@ -59,7 +59,9 @@ var populateNewsContent = (responseJSON) => {
   if (!imageUrl) {
     imageUrl = "assets/default.jpg";
   }
-  $("#news").css({ "background-image": `url(${imageUrl})` });
+  $("#news").css({
+    "background-image": `  linear-gradient( rgba(255,0,0,0), rgba(255,0,0,.5)), url(${imageUrl})`,
+  });
   $("#news a").attr("href", sourceLink, "_blank");
   document.querySelector("#news a").text = title;
 };
@@ -92,7 +94,7 @@ var displayNewsForCountry = (fullCountryName) => {
         })
         .catch((err) => {
           var newsHeaderEl = document.querySelector("#news a");
-          newsHeaderEl.text = "Your advertisement could go here";//TODO: @yulduz: fix it
+          newsHeaderEl.text = "Your advertisement could go here"; //TODO: @yulduz: fix it
           newsHeaderEl.setAttribute(
             "style",
             "font-size: 20px",
@@ -175,7 +177,7 @@ var displayStatsForGivenCountry = (country) => {
 };
 
 var populateCovidStatsContent = (data) => {
-  $("#info").attr("class", "card cardStyle");
+  $("#info").attr("class", "cardStyle");
 
   if (data.data.location === "Global") {
     errorMessage.innerHTML =
