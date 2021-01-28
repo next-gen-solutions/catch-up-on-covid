@@ -1,4 +1,6 @@
+//always expect 1 country (recently searched), as we don't need to keep track of all the countries for this app.
 var countries = JSON.parse(localStorage.getItem("countries")) || [];
+
 var currentCountry;
 
 //creating elements outside so it clears.
@@ -115,7 +117,8 @@ var displayChart = async (searchedCountry) => {
   var iframeEl = $("#chart iframe");
   var userLocationBasedCountry;
   userLocationBasedCountry = await getUsersLocation();
-  var previoslySearchedCountry = countries[countries.length - 1];
+  var previoslySearchedCountry = JSON.stringify(countries);
+  alert('YAYAY' + previoslySearchedCountry)
   //only display 1 country if it's redundant across 3 variables
   if (
     searchedCountry === previoslySearchedCountry &&
@@ -201,8 +204,13 @@ var populateCovidStatsContent = (data) => {
   info.appendChild(currentRecoveries);
 };
 
-// add country to local storage
+// Adds recently searched country to local storage by overwriting it's current contents
+// We only need to keep track of 1 recently searched country,
+// which is why we are not tracking the entire search history.
 var addCountryToLocalStorage = (country) => {
+  //update array
+  countries.splice(0, 1, country);
+
   let countryObj = []
   //push to localstorage
   countryObj.push(country);
