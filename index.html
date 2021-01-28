@@ -15,14 +15,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css"
         integrity="sha512-ZRv40llEogRmoWgZwnsqke3HNzJ0kiI0+pcMgiz2bxO6Ew1DVBtWjVn0qjrXdT3+u+pSN36gLgmJiiQ3cQtyzA=="
         crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Imbue:wght@500&family=Oswald&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
 
 </head>
 
 <body>
     <header>
-        <h1>Ketchup on COVID-19</h1>
-    </header>
+        <h1><span class="icon">
+            <i class="fas fa-virus"></i>
+
+        </span>
+        COVID CENTRAL 
+        <span class="icon">
+            <i class="fas fa-virus"></i>
+
+        </span> </h1>
+           </header>
     <div class="wrapper columns">
         <section class='column'>
             <div  class="search-area">
@@ -280,15 +290,13 @@
                             </select>
                         </span>
                         <span class="icon is-small is-left">
-                            <i class="fas fa-globe"></i>
-                        </span>
+                            <i class=" addSecondary fas fa-globe-americas"></i>                        </span>
                     </p>
                 </div>
-                <div class="field has-addons">
-                    <div class="control">
-                        <a class="button is-info" id="search">
-                            Search
-                        </a>
+                <div  class="field has-addons">
+                    <div id="searchbtn"class="control">
+                        <button  class=" button is-info" id="search">
+                           <i class="fas fa-search"></i>                </button >
                     </div>
                 </div>
             </div>
@@ -299,7 +307,7 @@
         <section class="column">
            
             <!-- single new article -->
-            <div class="secondary" id='news'>
+            <div class="news secondary" id='news'>
                 <a target="_blank" href=""></a>
             </div>
             <div class="secondary" id="chart">
@@ -308,6 +316,14 @@
             </div>
         </section>
     </div>
+    <footer>
+        <h1>REMEMBER!</h1>
+        <h1> SIX FEET. <i class="fas fa-people-arrows"></i></h1>
+        <h1> SANTIZE. <i class="fas fa-hands-wash"></i></h1>
+        
+        <h1> SAFTEY. <i class="fas fa-head-side-mask"></i> </h1>
+
+    </footer>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>

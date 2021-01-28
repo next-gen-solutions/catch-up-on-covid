@@ -46,7 +46,7 @@ var populateNewsContent = (responseJSON) => {
   if (!imageUrl) {
     imageUrl = "assets/default.jpg";
   }
-  $("#news").css({ "background-image": `url(${imageUrl})` });
+  $("#news").css({ "background-image": `  linear-gradient( rgba(255,0,0,0), rgba(255,0,0,.5)), url(${imageUrl})` });
   $("#news a").attr("href", sourceLink, "_blank");
   document.querySelector("#news a").text = title;
 };
@@ -61,7 +61,6 @@ var displayNewsForCountry = (fullCountryName) => {
             populateNewsContent(defaultResponseJSON);
           });
         } else {
-        
           populateNewsContent(responseJSON);
         }
       });
@@ -108,19 +107,17 @@ var displayStatsForGivenCountry = (country) => {
 
 var populateCovidStatsContent = (data) => {
 
-    $("#info").attr("class","card cardStyle");
-
+$("#info").attr("class", "cardStyle");
   if (data.data.location === "Global") {
     errorMessage.innerHTML =
       "This country is not yet supported by our program, please have a look at the global stats!";
     errorMessage.setAttribute("class", "error");
     countryName.innerHTML = data.data.location;
     lastChecked.innerHTML = "updated on " + moment().format("LLL");
-    currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
+    currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths ;
     currentCases.innerHTML = "Current Cases: " + data.data.confirmed;
     currentRecoveries.innerHTML = "Recovered Cases: " + data.data.recovered;
-  } 
-  else {
+  } else {
     errorMessage.innerHTML = "";
     countryName.innerHTML = data.data.location;
     lastChecked.innerHTML = "updated on " + moment().format("LLL");
