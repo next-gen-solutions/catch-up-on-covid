@@ -179,7 +179,7 @@ var addCountryToLocalStorage = (country) => {
 
 displayChart();
 displayNewsForCountry('United States of America');
-if(countries.length != 1){
+if(countries.length === 0){
     displayStatsForGivenCountry("global");
 }
 else{
