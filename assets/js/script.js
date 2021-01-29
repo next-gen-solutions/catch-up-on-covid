@@ -103,7 +103,6 @@ var getUsersLocation = async () => {
 };
 
 var displayChart = async (searchedCountry) => {
-  // We need user's location to include that into the chart
   var iframeEl = $("#chart iframe");
   var predefinedCountry = "US";
 
@@ -205,5 +204,5 @@ var addCountryToLocalStorage = (country) => {
   localStorage.setItem("countries", JSON.stringify(countries));
 };
 
-displayChart('United Statess');
-displayNewsForCountry('United States');
+displayChart();
+displayNewsForCountry('United States of America');
