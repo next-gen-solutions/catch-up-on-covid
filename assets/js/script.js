@@ -105,36 +105,8 @@ var getUsersLocation = async () => {
 var displayChart = async (searchedCountry) => {
   var iframeEl = $("#chart iframe");
   var predefinedCountry = "US";
-
-  var previoslySearchedCountry = JSON.stringify(countries); //TODO: @yulduz: fix this
-  //only display 1 country if it's redundant across 3 variables
-  if (
-    searchedCountry === previoslySearchedCountry &&
-    searchedCountry === predefinedCountry
-  ) {
-    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${searchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
-    return;
-  }
-
-  //only display 1 country if it's redundant across 2 variables
-  else if (predefinedCountry === previoslySearchedCountry) {
-    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
-    return;
-  }
-
-  //only display 2 countries when 1 is redundant
-  else if (!predefinedCountry == previoslySearchedCountry) {
-    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${previoslySearchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
-    return;
-  }
-
-  //only display 2 countries when 1 is redundant
-  else if (searchedCountry == previoslySearchedCountry) {
-    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${searchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
-    return;
-  }
-  //defaults to display all 3 countries if distinct
-  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${searchedCountry};${previoslySearchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+  var previoslySearchedCountry = countries[0];
+  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${previoslySearchedCountry};${searchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
 };
 
 var displayStatsForGivenCountry = (country) => {
