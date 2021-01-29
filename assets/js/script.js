@@ -72,39 +72,27 @@ var defaulImgUrl = "assets/default.jpg";
 $("#news").css({ "background-image": `url(${defaulImgUrl})` });
 
 var displayNewsForCountry = (fullCountryName) => {
-  //on initial load, displays news based on user's location
-  getUsersLocation()
-    .then((country) => {
-      if (!fullCountryName) {
-        myCountry = country;
-      } else myCountry = fullCountryName;
-    })
-    .then(() => {
-      convertCountryToISO(myCountry)
-        .then((countryCode) => {
-          getNewsForCountry(countryCode).then((responseJSON) => {
-            if (responseJSON.status == "No matches for your search.") {
-              getNewsForCountry("US").then((defaultResponseJSON) => {
-                populateNewsContent(defaultResponseJSON);
-              });
-            } else {
-              populateNewsContent(responseJSON);
-            }
+  convertCountryToISO(fullCountryName)
+    .then((countryCode) => {
+      getNewsForCountry(countryCode).then((responseJSON) => {
+        if (responseJSON.status == "No matches for your search.") {
+          getNewsForCountry("US").then((defaultResponseJSON) => {
+            populateNewsContent(defaultResponseJSON);
           });
-        })
-        .catch((err) => {
-          var newsHeaderEl = document.querySelector("#news a");
-          newsHeaderEl.text = "Your advertisement could go here"; //TODO: @yulduz: fix it
-          newsHeaderEl.setAttribute(
-            "style",
-            "font-size: 20px",
-            "color: yellow"
-          );
-          console.error(err);
-        });
+        } else {
+          populateNewsContent(responseJSON);
+        }
+      });
+    })
+    .catch((err) => {
+      var newsHeaderEl = document.querySelector("#news a");
+      newsHeaderEl.text = "Your advertisement could go here"; //TODO: @yulduz: fix it
+      newsHeaderEl.setAttribute("style", "font-size: 20px", "color: yellow");
+      console.error(err);
     });
 };
 
+//NOT COMPATIBLE W/ GITHUB PAGES' DUE TO SERVING CONTENT OVER HTTP
 var getUsersLocation = async () => {
   const response = await fetch(
     "http://api.ipstack.com/check?access_key=caf6117ea48e02e280cf1198ad4c4e12"
@@ -117,37 +105,37 @@ var getUsersLocation = async () => {
 var displayChart = async (searchedCountry) => {
   // We need user's location to include that into the chart
   var iframeEl = $("#chart iframe");
-  var userLocationBasedCountry;
-  userLocationBasedCountry = await getUsersLocation();
+  var predefinedCountry = "US";
+
   var previoslySearchedCountry = JSON.stringify(countries); //TODO: @yulduz: fix this
   //only display 1 country if it's redundant across 3 variables
   if (
     searchedCountry === previoslySearchedCountry &&
-    searchedCountry === userLocationBasedCountry
+    searchedCountry === predefinedCountry
   ) {
     iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${searchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
     return;
   }
 
   //only display 1 country if it's redundant across 2 variables
-  else if (userLocationBasedCountry === previoslySearchedCountry) {
-    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${userLocationBasedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+  else if (predefinedCountry === previoslySearchedCountry) {
+    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
     return;
   }
 
   //only display 2 countries when 1 is redundant
-  else if (!userLocationBasedCountry == previoslySearchedCountry) {
-    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${userLocationBasedCountry};${previoslySearchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+  else if (!predefinedCountry == previoslySearchedCountry) {
+    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${previoslySearchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
     return;
   }
 
   //only display 2 countries when 1 is redundant
   else if (searchedCountry == previoslySearchedCountry) {
-    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${userLocationBasedCountry};${searchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+    iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${searchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
     return;
   }
   //defaults to display all 3 countries if distinct
-  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${userLocationBasedCountry};${searchedCountry};${previoslySearchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
+  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${searchedCountry};${previoslySearchedCountry}&scale=linear&start=1%2F1%2F21&top=0&domain=&theme=dark&advanced=1`;
 };
 
 var displayStatsForGivenCountry = (country) => {
@@ -217,5 +205,5 @@ var addCountryToLocalStorage = (country) => {
   localStorage.setItem("countries", JSON.stringify(countries));
 };
 
-displayChart();
-displayNewsForCountry();
+displayChart('United Statess');
+displayNewsForCountry('United States');
