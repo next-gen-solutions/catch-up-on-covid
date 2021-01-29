@@ -107,7 +107,7 @@ var displayChart = async (searchedCountry) => {
   var predefinedCountry = "US";
   var previoslySearchedCountry = countries[0];
   var twoMonthsAgo = moment().subtract(2, "months").format("M/DD/YY");
-  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${previoslySearchedCountry};${searchedCountry}&scale=linear&start=${twoMonthsAgo}&top=0&domain=&theme=dark&advanced=1`;
+  iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${previoslySearchedCountry};${searchedCountry}&scale=linear&start=${twoMonthsAgo}&top=0&domain=&theme=paper&advanced=1`;
 };
 
 var displayStatsForGivenCountry = (country) => {
