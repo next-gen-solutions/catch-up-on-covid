@@ -106,7 +106,7 @@ var displayChart = async (searchedCountry) => {
   var iframeEl = $("#chart iframe");
   var predefinedCountry = "US";
   var previoslySearchedCountry = countries[0];
-  var twoMonthsAgo = moment().subtract(2, 'months').format('M/DD/YY')
+  var twoMonthsAgo = moment().subtract(2, "months").format("M/DD/YY");
   iframeEl[0].attributes.src.nodeValue = `https://covid19chart.org/#/?bare=1&include=${predefinedCountry};${previoslySearchedCountry};${searchedCountry}&scale=linear&start=${twoMonthsAgo}&top=0&domain=&theme=dark&advanced=1`;
 };
 
@@ -140,9 +140,11 @@ var populateCovidStatsContent = (data) => {
   $("#info").attr("class", "cardStyle");
 
   if (data.data.location === "Global") {
-    errorMessage.innerHTML =
-      "This country is not yet supported by our program, please have a look at the global stats!";
-    errorMessage.setAttribute("class", "error");
+    if (!countries.length == 0) {
+      errorMessage.innerHTML =
+        "This country is not yet supported by our program, please have a look at the global stats!";
+      errorMessage.setAttribute("class", "error");
+    }
     countryName.innerHTML = data.data.location;
     lastChecked.innerHTML = "updated on " + moment().format("LLL");
     currentDeaths.innerHTML = " Current Deaths: " + data.data.deaths;
@@ -178,10 +180,9 @@ var addCountryToLocalStorage = (country) => {
 };
 
 displayChart();
-displayNewsForCountry('United States of America');
-if(countries.length === 0){
-    displayStatsForGivenCountry("global");
-}
-else{
-    displayStatsForGivenCountry(countries[0]);
+displayNewsForCountry("United States of America");
+if (countries.length == 0) {
+  displayStatsForGivenCountry("global");
+} else {
+  displayStatsForGivenCountry(countries[0]);
 }
