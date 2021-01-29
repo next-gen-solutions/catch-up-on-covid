@@ -60,7 +60,7 @@ var populateNewsContent = (responseJSON) => {
     imageUrl = "assets/default.jpg";
   }
   $("#news").css({
-    "background-image": `  linear-gradient( rgba(255,0,0,0), rgba(255,0,0,.5)), url(${imageUrl})`,
+    "background-image": `  url(${imageUrl})`,
   });
   $("#news a").attr("href", sourceLink, "_blank");
   document.querySelector("#news a").text = title;
@@ -206,3 +206,10 @@ var addCountryToLocalStorage = (country) => {
 
 displayChart();
 displayNewsForCountry('United States of America');
+
+if(countries.length != 1){
+    displayStatsForGivenCountry("global");
+}
+else{
+    displayStatsForGivenCountry(countries[0]);
+}
